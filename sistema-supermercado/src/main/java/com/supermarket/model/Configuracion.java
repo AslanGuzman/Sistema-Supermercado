@@ -1,41 +1,30 @@
 package com.supermarket.model;
 
-import java.util.Objects;
+import com.supermarket.model.base.AbstractEntity;
 
-public class Configuracion {
+public class Configuracion extends AbstractEntity {
 
-    private int id;
-    private String clave;
-    private String valor;
+    private final String clave;
+    private final String valor;
 
-    public Configuracion() {}
-
-    public Configuracion(int id, String clave, String valor) {
-        this.id = id;
-        this.clave = clave;
-        this.valor = valor;
+    private Configuracion(Builder b) {
+        this.id = b.id;
+        this.clave = b.clave;
+        this.valor = b.valor;
     }
-
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
 
     public String getClave() { return clave; }
-    public void setClave(String clave) { this.clave = clave; }
-
     public String getValor() { return valor; }
-    public void setValor(String valor) { this.valor = valor; }
 
-    @Override
-    public String toString() { return clave + "=" + valor; }
+    public static class Builder {
+        private int id;
+        private String clave;
+        private String valor;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Configuracion)) return false;
-        Configuracion conf = (Configuracion) o;
-        return id == conf.id;
+        public Builder id(int id) { this.id = id; return this; }
+        public Builder clave(String c) { this.clave = c; return this; }
+        public Builder valor(String v) { this.valor = v; return this; }
+
+        public Configuracion build() { return new Configuracion(this); }
     }
-
-    @Override
-    public int hashCode() { return Objects.hash(id); }
 }

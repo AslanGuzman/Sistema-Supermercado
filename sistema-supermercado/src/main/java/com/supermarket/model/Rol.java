@@ -1,36 +1,27 @@
 package com.supermarket.model;
 
-import java.util.Objects;
+import com.supermarket.model.base.AbstractEntity;
 
-public class Rol {
+public class Rol extends AbstractEntity {
 
-    private int id;
-    private String nombre;
+    private final String nombre;
 
-    public Rol() {}
-
-    public Rol(int id, String nombre) {
-        this.id = id;
-        this.nombre = nombre;
+    private Rol(Builder b) {
+        this.id = b.id;
+        this.nombre = b.nombre;
     }
-
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
 
     public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
 
-    @Override
-    public String toString() { return nombre; }
+    public static class Builder {
+        private int id;
+        private String nombre;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Rol)) return false;
-        Rol rol = (Rol) o;
-        return id == rol.id;
+        public Builder id(int id) { this.id = id; return this; }
+        public Builder nombre(String n) { this.nombre = n; return this; }
+
+        public Rol build() { return new Rol(this); }
     }
 
-    @Override
-    public int hashCode() { return Objects.hash(id); }
+    @Override public String toString() { return nombre; }
 }
