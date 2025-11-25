@@ -1,51 +1,30 @@
 package com.supermarket.model;
 
-import java.util.Objects;
+import com.supermarket.model.base.AbstractEntity;
 
-public class Inventario {
+public class Inventario extends AbstractEntity {
 
-    private int id;
-    private Producto producto;
-    private int cantidad;
-    private int minimo;
-    private int maximo;
+    private final Producto producto;
+    private final int cantidad;
 
-    public Inventario() {}
-
-    public Inventario(int id, Producto producto, int cantidad, int minimo, int maximo) {
-        this.id = id;
-        this.producto = producto;
-        this.cantidad = cantidad;
-        this.minimo = minimo;
-        this.maximo = maximo;
+    private Inventario(Builder b) {
+        this.id = b.id;
+        this.producto = b.producto;
+        this.cantidad = b.cantidad;
     }
-
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
 
     public Producto getProducto() { return producto; }
-    public void setProducto(Producto producto) { this.producto = producto; }
-
     public int getCantidad() { return cantidad; }
-    public void setCantidad(int cantidad) { this.cantidad = cantidad; }
 
-    public int getMinimo() { return minimo; }
-    public void setMinimo(int minimo) { this.minimo = minimo; }
+    public static class Builder {
+        private int id;
+        private Producto producto;
+        private int cantidad;
 
-    public int getMaximo() { return maximo; }
-    public void setMaximo(int maximo) { this.maximo = maximo; }
+        public Builder id(int id) { this.id = id; return this; }
+        public Builder producto(Producto p) { this.producto = p; return this; }
+        public Builder cantidad(int c) { this.cantidad = c; return this; }
 
-    @Override
-    public String toString() { return producto.getNombre() + " - Cant: " + cantidad; }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Inventario)) return false;
-        Inventario inv = (Inventario) o;
-        return id == inv.id;
+        public Inventario build() { return new Inventario(this); }
     }
-
-    @Override
-    public int hashCode() { return Objects.hash(id); }
 }

@@ -1,74 +1,37 @@
 package com.supermarket.model;
 
-import java.time.LocalDate;
-import java.util.Objects;
+import com.supermarket.model.base.AbstractEntity;
 
-public class Producto {
+public class Producto extends AbstractEntity {
 
-    private int id;
-    private String sku;
-    private String nombre;
-    private String descripcion;
-    private Categoria categoria;
-    private double precio;
-    private Double precioMembresia;
-    private String imagenPath;
-    private LocalDate fechaCreado;
+    private final String nombre;
+    private final double precio;
+    private final Categoria categoria;
 
-    public Producto() {}
-
-    public Producto(int id, String sku, String nombre, String descripcion, 
-                    Categoria categoria, double precio, Double precioMembresia,
-                    String imagenPath, LocalDate fechaCreado) {
-        this.id = id;
-        this.sku = sku;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.categoria = categoria;
-        this.precio = precio;
-        this.precioMembresia = precioMembresia;
-        this.imagenPath = imagenPath;
-        this.fechaCreado = fechaCreado;
+    private Producto(Builder b) {
+        this.id = b.id;
+        this.nombre = b.nombre;
+        this.precio = b.precio;
+        this.categoria = b.categoria;
     }
-
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
-
-    public String getSku() { return sku; }
-    public void setSku(String sku) { this.sku = sku; }
 
     public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
-
-    public String getDescripcion() { return descripcion; }
-    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
-
-    public Categoria getCategoria() { return categoria; }
-    public void setCategoria(Categoria categoria) { this.categoria = categoria; }
-
     public double getPrecio() { return precio; }
-    public void setPrecio(double precio) { this.precio = precio; }
+    public Categoria getCategoria() { return categoria; }
 
-    public Double getPrecioMembresia() { return precioMembresia; }
-    public void setPrecioMembresia(Double precioMembresia) { this.precioMembresia = precioMembresia; }
+    public static class Builder {
+        private int id;
+        private String nombre;
+        private double precio;
+        private Categoria categoria;
 
-    public String getImagenPath() { return imagenPath; }
-    public void setImagenPath(String imagenPath) { this.imagenPath = imagenPath; }
+        public Builder id(int id) { this.id = id; return this; }
+        public Builder nombre(String n) { this.nombre = n; return this; }
+        public Builder precio(double p) { this.precio = p; return this; }
+        public Builder categoria(Categoria c) { this.categoria = c; return this; }
 
-    public LocalDate getFechaCreado() { return fechaCreado; }
-    public void setFechaCreado(LocalDate fechaCreado) { this.fechaCreado = fechaCreado; }
-
-    @Override
-    public String toString() { return nombre + " (" + sku + ")"; }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Producto)) return false;
-        Producto p = (Producto) o;
-        return id == p.id;
+        public Producto build() { return new Producto(this); }
     }
 
-    @Override
-    public int hashCode() { return Objects.hash(id); }
+    @Override public String toString() { return nombre; }
 }
