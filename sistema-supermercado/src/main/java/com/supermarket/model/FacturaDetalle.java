@@ -1,60 +1,35 @@
 package com.supermarket.model;
 
-import java.util.Objects;
+import com.supermarket.model.base.AbstractEntity;
 
-public class FacturaDetalle {
+public class FacturaDetalle extends AbstractEntity {
 
-    private int id;
-    private Factura factura;
-    private Producto producto;
-    private int cantidad;
-    private double precioUnitario;
-    private double subtotal;
+    private final Producto producto;
+    private final int cantidad;
+    private final double precio;
 
-    public FacturaDetalle() {}
-
-    public FacturaDetalle(int id, Factura factura, Producto producto, 
-                          int cantidad, double precioUnitario, double subtotal) {
-
-        this.id = id;
-        this.factura = factura;
-        this.producto = producto;
-        this.cantidad = cantidad;
-        this.precioUnitario = precioUnitario;
-        this.subtotal = subtotal;
+    private FacturaDetalle(Builder b) {
+        this.id = b.id;
+        this.producto = b.producto;
+        this.cantidad = b.cantidad;
+        this.precio = b.precio;
     }
-
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
-
-    public Factura getFactura() { return factura; }
-    public void setFactura(Factura factura) { this.factura = factura; }
 
     public Producto getProducto() { return producto; }
-    public void setProducto(Producto producto) { this.producto = producto; }
-
     public int getCantidad() { return cantidad; }
-    public void setCantidad(int cantidad) { this.cantidad = cantidad; }
+    public double getPrecio() { return precio; }
 
-    public double getPrecioUnitario() { return precioUnitario; }
-    public void setPrecioUnitario(double precioUnitario) { this.precioUnitario = precioUnitario; }
+    public static class Builder {
+        private int id;
+        private Producto producto;
+        private int cantidad;
+        private double precio;
 
-    public double getSubtotal() { return subtotal; }
-    public void setSubtotal(double subtotal) { this.subtotal = subtotal; }
+        public Builder id(int id) { this.id = id; return this; }
+        public Builder producto(Producto p) { this.producto = p; return this; }
+        public Builder cantidad(int c) { this.cantidad = c; return this; }
+        public Builder precio(double p) { this.precio = p; return this; }
 
-    @Override
-    public String toString() {
-        return cantidad + " x " + producto.getNombre() + " = " + subtotal;
+        public FacturaDetalle build() { return new FacturaDetalle(this); }
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof FacturaDetalle)) return false;
-        FacturaDetalle fd = (FacturaDetalle) o;
-        return id == fd.id;
-    }
-
-    @Override
-    public int hashCode() { return Objects.hash(id); }
 }

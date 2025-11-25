@@ -1,67 +1,51 @@
 package com.supermarket.model;
 
+import com.supermarket.model.base.AbstractEntity;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
-public class Caja {
+public class Caja extends AbstractEntity {
 
-    private int id;
-    private Usuario usuario;
-    private LocalDateTime fechaApertura;
-    private LocalDateTime fechaCierre;
-    private double montoInicial;
-    private Double montoFinal;
-    private String estado;
+    private final Usuario usuario;
+    private final LocalDateTime fechaApertura;
+    private final LocalDateTime fechaCierre;
+    private final double montoInicial;
+    private final Double montoFinal;
+    private final String estado;
 
-    public Caja() {}
-
-    public Caja(int id, Usuario usuario, LocalDateTime fechaApertura,
-                LocalDateTime fechaCierre, double montoInicial,
-                Double montoFinal, String estado) {
-
-        this.id = id;
-        this.usuario = usuario;
-        this.fechaApertura = fechaApertura;
-        this.fechaCierre = fechaCierre;
-        this.montoInicial = montoInicial;
-        this.montoFinal = montoFinal;
-        this.estado = estado;
+    private Caja(Builder b) {
+        this.id = b.id;
+        this.usuario = b.usuario;
+        this.fechaApertura = b.fechaApertura;
+        this.fechaCierre = b.fechaCierre;
+        this.montoInicial = b.montoInicial;
+        this.montoFinal = b.montoFinal;
+        this.estado = b.estado;
     }
-
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
 
     public Usuario getUsuario() { return usuario; }
-    public void setUsuario(Usuario usuario) { this.usuario = usuario; }
-
     public LocalDateTime getFechaApertura() { return fechaApertura; }
-    public void setFechaApertura(LocalDateTime fechaApertura) { this.fechaApertura = fechaApertura; }
-
     public LocalDateTime getFechaCierre() { return fechaCierre; }
-    public void setFechaCierre(LocalDateTime fechaCierre) { this.fechaCierre = fechaCierre; }
-
     public double getMontoInicial() { return montoInicial; }
-    public void setMontoInicial(double montoInicial) { this.montoInicial = montoInicial; }
-
     public Double getMontoFinal() { return montoFinal; }
-    public void setMontoFinal(Double montoFinal) { this.montoFinal = montoFinal; }
-
     public String getEstado() { return estado; }
-    public void setEstado(String estado) { this.estado = estado; }
 
-    @Override
-    public String toString() {
-        return "Caja #" + id + " - " + estado;
+    public static class Builder {
+        private int id;
+        private Usuario usuario;
+        private LocalDateTime fechaApertura;
+        private LocalDateTime fechaCierre;
+        private double montoInicial;
+        private Double montoFinal;
+        private String estado;
+
+        public Builder id(int id) { this.id = id; return this; }
+        public Builder usuario(Usuario u) { this.usuario = u; return this; }
+        public Builder fechaApertura(LocalDateTime f) { this.fechaApertura = f; return this; }
+        public Builder fechaCierre(LocalDateTime f) { this.fechaCierre = f; return this; }
+        public Builder montoInicial(double m) { this.montoInicial = m; return this; }
+        public Builder montoFinal(Double m) { this.montoFinal = m; return this; }
+        public Builder estado(String e) { this.estado = e; return this; }
+
+        public Caja build() { return new Caja(this); }
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Caja)) return false;
-        Caja c = (Caja) o;
-        return id == c.id;
-    }
-
-    @Override
-    public int hashCode() { return Objects.hash(id); }
 }

@@ -1,49 +1,30 @@
 package com.supermarket.model;
 
-import java.time.LocalDateTime;
-import java.util.Objects;
+import com.supermarket.model.base.AbstractEntity;
 
-public class BackupRegistro {
+public class BackupRegistro extends AbstractEntity {
 
-    private int id;
-    private Usuario usuario;
-    private String ruta;
-    private LocalDateTime fecha;
+    private final String descripcion;
+    private final String archivo;
 
-    public BackupRegistro() {}
-
-    public BackupRegistro(int id, Usuario usuario, String ruta, LocalDateTime fecha) {
-        this.id = id;
-        this.usuario = usuario;
-        this.ruta = ruta;
-        this.fecha = fecha;
+    private BackupRegistro(Builder b) {
+        this.id = b.id;
+        this.descripcion = b.descripcion;
+        this.archivo = b.archivo;
     }
 
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public String getDescripcion() { return descripcion; }
+    public String getArchivo() { return archivo; }
 
-    public Usuario getUsuario() { return usuario; }
-    public void setUsuario(Usuario usuario) { this.usuario = usuario; }
+    public static class Builder {
+        private int id;
+        private String descripcion;
+        private String archivo;
 
-    public String getRuta() { return ruta; }
-    public void setRuta(String ruta) { this.ruta = ruta; }
+        public Builder id(int id) { this.id = id; return this; }
+        public Builder descripcion(String d) { this.descripcion = d; return this; }
+        public Builder archivo(String a) { this.archivo = a; return this; }
 
-    public LocalDateTime getFecha() { return fecha; }
-    public void setFecha(LocalDateTime fecha) { this.fecha = fecha; }
-
-    @Override
-    public String toString() {
-        return "Backup en " + ruta + " (" + fecha + ")";
+        public BackupRegistro build() { return new BackupRegistro(this); }
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof BackupRegistro)) return false;
-        BackupRegistro b = (BackupRegistro) o;
-        return id == b.id;
-    }
-
-    @Override
-    public int hashCode() { return Objects.hash(id); }
 }

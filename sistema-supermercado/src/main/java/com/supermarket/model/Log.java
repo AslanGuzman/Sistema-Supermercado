@@ -1,49 +1,36 @@
 package com.supermarket.model;
 
+import com.supermarket.model.base.AbstractEntity;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
-public class Log {
+public class Log extends AbstractEntity {
 
-    private int id;
-    private Usuario usuario;
-    private String accion;
-    private LocalDateTime fecha;
+    private final Usuario usuario;
+    private final String accion;
+    private final LocalDateTime fecha;
 
-    public Log() {}
-
-    public Log(int id, Usuario usuario, String accion, LocalDateTime fecha) {
-        this.id = id;
-        this.usuario = usuario;
-        this.accion = accion;
-        this.fecha = fecha;
+    private Log(Builder b) {
+        this.id = b.id;
+        this.usuario = b.usuario;
+        this.accion = b.accion;
+        this.fecha = b.fecha;
     }
-
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
 
     public Usuario getUsuario() { return usuario; }
-    public void setUsuario(Usuario usuario) { this.usuario = usuario; }
-
     public String getAccion() { return accion; }
-    public void setAccion(String accion) { this.accion = accion; }
-
     public LocalDateTime getFecha() { return fecha; }
-    public void setFecha(LocalDateTime fecha) { this.fecha = fecha; }
 
-    @Override
-    public String toString() {
-        return fecha + " - " + accion;
+    public static class Builder {
+        private int id;
+        private Usuario usuario;
+        private String accion;
+        private LocalDateTime fecha;
+
+        public Builder id(int i) { this.id = i; return this; }
+        public Builder usuario(Usuario u) { this.usuario = u; return this; }
+        public Builder accion(String a) { this.accion = a; return this; }
+        public Builder fecha(LocalDateTime f) { this.fecha = f; return this; }
+
+        public Log build() { return new Log(this); }
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Log)) return false;
-        Log log = (Log) o;
-        return id == log.id;
-    }
-
-    @Override
-    public int hashCode() { return Objects.hash(id); }
 }

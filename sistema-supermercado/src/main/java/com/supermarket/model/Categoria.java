@@ -1,36 +1,25 @@
 package com.supermarket.model;
 
-import java.util.Objects;
+import com.supermarket.model.base.AbstractEntity;
 
-public class Categoria {
+public class Categoria extends AbstractEntity {
 
-    private int id;
-    private String nombre;
+    private final String nombre;
 
-    public Categoria() {}
-
-    public Categoria(int id, String nombre) {
-        this.id = id;
-        this.nombre = nombre;
+    private Categoria(Builder b) {
+        this.id = b.id;
+        this.nombre = b.nombre;
     }
-
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
 
     public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
 
-    @Override
-    public String toString() { return nombre; }
+    public static class Builder {
+        private int id;
+        private String nombre;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Categoria)) return false;
-        Categoria cat = (Categoria) o;
-        return id == cat.id;
+        public Builder id(int i) { this.id = i; return this; }
+        public Builder nombre(String n) { this.nombre = n; return this; }
+
+        public Categoria build() { return new Categoria(this); }
     }
-
-    @Override
-    public int hashCode() { return Objects.hash(id); }
 }

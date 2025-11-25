@@ -1,66 +1,47 @@
 package com.supermarket.model;
 
+import com.supermarket.model.base.AbstractEntity;
 import java.time.LocalDateTime;
-import java.util.Objects;
+import java.util.List;
 
-public class Factura {
+public class Factura extends AbstractEntity {
 
-    private int id;
-    private Cliente cliente;
-    private Usuario usuario;
-    private LocalDateTime fecha;
-    private double total;
-    private String metodoPago;
-    private boolean membresiaAplicada;
+    private final Cliente cliente;
+    private final Usuario usuario;
+    private final LocalDateTime fecha;
+    private final double total;
+    private final List<FacturaDetalle> detalles;
 
-    public Factura() {}
-
-    public Factura(int id, Cliente cliente, Usuario usuario, 
-                   LocalDateTime fecha, double total, String metodoPago, 
-                   boolean membresiaAplicada) {
-        this.id = id;
-        this.cliente = cliente;
-        this.usuario = usuario;
-        this.fecha = fecha;
-        this.total = total;
-        this.metodoPago = metodoPago;
-        this.membresiaAplicada = membresiaAplicada;
+    private Factura(Builder b) {
+        this.id = b.id;
+        this.cliente = b.cliente;
+        this.usuario = b.usuario;
+        this.fecha = b.fecha;
+        this.total = b.total;
+        this.detalles = b.detalles;
     }
-
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
 
     public Cliente getCliente() { return cliente; }
-    public void setCliente(Cliente cliente) { this.cliente = cliente; }
-
     public Usuario getUsuario() { return usuario; }
-    public void setUsuario(Usuario usuario) { this.usuario = usuario; }
-
     public LocalDateTime getFecha() { return fecha; }
-    public void setFecha(LocalDateTime fecha) { this.fecha = fecha; }
-
     public double getTotal() { return total; }
-    public void setTotal(double total) { this.total = total; }
+    public List<FacturaDetalle> getDetalles() { return detalles; }
 
-    public String getMetodoPago() { return metodoPago; }
-    public void setMetodoPago(String metodoPago) { this.metodoPago = metodoPago; }
+    public static class Builder {
+        private int id;
+        private Cliente cliente;
+        private Usuario usuario;
+        private LocalDateTime fecha;
+        private double total;
+        private List<FacturaDetalle> detalles;
 
-    public boolean isMembresiaAplicada() { return membresiaAplicada; }
-    public void setMembresiaAplicada(boolean membresiaAplicada) { this.membresiaAplicada = membresiaAplicada; }
+        public Builder id(int id) { this.id = id; return this; }
+        public Builder cliente(Cliente c) { this.cliente = c; return this; }
+        public Builder usuario(Usuario u) { this.usuario = u; return this; }
+        public Builder fecha(LocalDateTime f) { this.fecha = f; return this; }
+        public Builder total(double t) { this.total = t; return this; }
+        public Builder detalles(List<FacturaDetalle> d) { this.detalles = d; return this; }
 
-    @Override
-    public String toString() {
-        return "Factura #" + id + " - Total: " + total;
+        public Factura build() { return new Factura(this); }
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Factura)) return false;
-        Factura f = (Factura) o;
-        return id == f.id;
-    }
-
-    @Override
-    public int hashCode() { return Objects.hash(id); }
 }
