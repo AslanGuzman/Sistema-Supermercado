@@ -11,6 +11,10 @@ public class Categoria extends AbstractEntity {
         this.nombre = b.nombre;
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     public String getNombre() { return nombre; }
 
     public static class Builder {

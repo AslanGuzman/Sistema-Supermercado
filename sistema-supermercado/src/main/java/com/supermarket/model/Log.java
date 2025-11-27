@@ -19,6 +19,10 @@ public class Log extends AbstractEntity {
     public Usuario getUsuario() { return usuario; }
     public String getAccion() { return accion; }
     public LocalDateTime getFecha() { return fecha; }
+    
+    public static Builder builder() {
+        return new Builder();
+    }
 
     public static class Builder {
         private int id;
