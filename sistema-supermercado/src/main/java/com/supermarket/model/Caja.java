@@ -28,6 +28,10 @@ public class Caja extends AbstractEntity {
     public double getMontoInicial() { return montoInicial; }
     public Double getMontoFinal() { return montoFinal; }
     public String getEstado() { return estado; }
+    
+    public static Builder builder() {
+        return new Builder();
+    }
 
     public static class Builder {
         private int id;

@@ -10,6 +10,11 @@ public class Rol extends AbstractEntity {
         this.id = b.id;
         this.nombre = b.nombre;
     }
+    
+    public static Builder builder() {
+        return new Builder();
+    }
+
 
     public String getNombre() { return nombre; }
 
