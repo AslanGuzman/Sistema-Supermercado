@@ -15,6 +15,10 @@ public class Configuracion extends AbstractEntity {
 
     public String getClave() { return clave; }
     public String getValor() { return valor; }
+    
+    public static Builder builder() {
+        return new Builder();
+    }
 
     public static class Builder {
         private int id;
